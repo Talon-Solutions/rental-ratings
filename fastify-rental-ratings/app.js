@@ -10,7 +10,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(cors, {
     origin: "*",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "OPTIONS"]
   })
 
   // Do not touch the following lines

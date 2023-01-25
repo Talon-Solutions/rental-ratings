@@ -32,6 +32,14 @@ main > h1 {
     font-size: 1em;
 }
 
+.button-search:hover {
+    cursor: pointer;
+}
+
+.selected {
+    box-shadow: inset 0 0 5px black;
+}
+
 #contribute {
     padding: 1em;
     display: flex;

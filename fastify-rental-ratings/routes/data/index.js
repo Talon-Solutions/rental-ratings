@@ -31,12 +31,12 @@ module.exports = async function (fastify, opts) {
       message: 'Error with query'
     }
 
-    if (request.query.searchType === 'landlord')
-      res = await dataService.searchLandlords(request.query.searchQuery)
-    if (request.query.searchType === 'property')
-      res = await dataService.searchProperties(request.query.searchQuery)
-    if (request.query.searchType === 'city')
-      res = await dataService.searchCities(request.query.searchQuery)
+    if (request.query.type === 'landlord')
+      res = await dataService.searchLandlords(request.query.query)
+    if (request.query.type === 'property')
+      res = await dataService.searchProperties(request.query.query)
+    if (request.query.type === 'city')
+      res = await dataService.searchCities(request.query.query)
 
     reply
       .code(res.statusCode)
