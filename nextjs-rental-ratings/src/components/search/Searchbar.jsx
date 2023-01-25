@@ -1,8 +1,11 @@
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import './search.css'
 
-export default function Searchbar({ type, suggestions, onInput }) {
+export default function Searchbar({ type, showSuggestions, suggestions, onInput, value }) {
     const [filteredSuggestions, setFilteredSuggestions] = useState(null);
+
+    const router = useRouter();
 
     useEffect(() => {
         let limitedSuggestions = [];
@@ -20,9 +23,11 @@ export default function Searchbar({ type, suggestions, onInput }) {
         }
 
         setFilteredSuggestions(limitedSuggestions);
-        
-
     }, [suggestions])
+
+    let handleSearch = () => {
+        router.push(`/search?type=${type}&query=${value}`)
+    }
 
     return (
         <div id="container-searchbar">
@@ -32,21 +37,29 @@ export default function Searchbar({ type, suggestions, onInput }) {
                     id="searchbar"
                     placeholder="Search..."
                     onChange={(e) => onInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.code === "Enter") {
+                            handleSearch()
+                        }
+                    }}
                 />
                 <button
                     id="btn-search"
+                    onClick={() => handleSearch()}
                 >
                     <img src="/arrow-narrow-right.svg" alt="Search" />
                 </button>
             </div>
-
-            <ul id="search-dropdown">
-                {filteredSuggestions?.map(sug => {
-                    return (
-                        <li>{sug.value}</li>
-                    )
-                })}
-            </ul>
+            {showSuggestions && 
+                <ul id="search-dropdown">
+                    {filteredSuggestions?.map(sug => {
+                        return (
+                            <li key={sug.id}>{sug.value}</li>
+                        )
+                    })}
+                </ul>
+            }
+            
         </div>
     )
 }

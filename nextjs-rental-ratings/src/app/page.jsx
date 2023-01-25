@@ -21,7 +21,11 @@ export default function Home() {
     const fetchData = async () => {
       if (search.query !== "") {
         const data = await getSearchData(search.type, search.query);
-        setSearchData(data);
+        if (data) {
+          setSearchData(data);
+        } else {
+          setSearchData([])
+        }
       }
     }
     fetchData();
@@ -51,8 +55,10 @@ export default function Home() {
         </div>
         <Searchbar 
           type={search.type}
+          showSuggestions={true}
           suggestions={searchData}
           onInput={(input) => setSearch({...search, query: input})}
+          value={search.query}
         />
       </section>
       <section id='contribute'>
