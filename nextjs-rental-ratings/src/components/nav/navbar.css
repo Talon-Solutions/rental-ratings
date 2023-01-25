@@ -1,0 +1,23 @@
+#login {
+    background: none;
+    border: none;
+}
+
+#register {
+    background-color: var(--accent-orange);
+    color: white;
+    border: 1px solid var(--accent-orange-stroke);
+    border-radius: 0.3em; 
+}
+
+nav {
+    display: flex;
+    gap: 4em;
+    justify-content: center;
+    padding: 1em;
+}
+
+nav > button {
+    padding: 0.5em;
+    font-size: 1.05em;
+}
