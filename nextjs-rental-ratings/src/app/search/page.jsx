@@ -5,6 +5,7 @@ import PropertyResult from "@/components/results/property";
 import Searchbar from "@/components/search/Searchbar";
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from "react";
+import './page.css';
 
 async function getSearchData(type, query) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/data/search?type=${type}&query=${query}`);
