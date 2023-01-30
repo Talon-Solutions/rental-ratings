@@ -5,6 +5,7 @@
   --accent-brown: #b98967;
   --accent-brown-stroke: #a2785a;
   --hover-select: #d4d4cf;
+  --text-secondary: rgb(37, 37, 37);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');

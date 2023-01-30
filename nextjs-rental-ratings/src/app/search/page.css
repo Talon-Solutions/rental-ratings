@@ -1,0 +1,42 @@
+#all-results > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#all-results li {
+    margin-top: 0.5em;
+    border: 1px solid black;
+    border-radius: 0.3em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+.landlord-result {
+    display: grid;
+    grid-template-areas:
+        "header rating"
+        "main main";
+}
+
+.landlord-result:hover {
+    cursor: pointer;
+}
+
+.landlord-name {
+    grid-area: header;
+}
+
+.landlord-rating {
+    grid-area: rating;
+    justify-self: end;
+}
+
+.landlord-cities {
+    margin-top: 0.5em;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
