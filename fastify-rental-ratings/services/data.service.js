@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const Search = require("../models/Search")
 const Reviews = require("../models/Reviews")
 
-class AuthService {
+class DataService {
   returnSuccess = (code, message) => {
     return {
       statusCode: code,
@@ -54,4 +54,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService
+module.exports = DataService
