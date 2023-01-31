@@ -1,8 +1,16 @@
+import { useRouter } from 'next/navigation';
 
 export default function LandlordResult({ data }) {
+    const router = useRouter();
+
+    let handleShowReviews = () => {
+        router.push(`/reviews?type=landlord&id=${data.id}`)
+    }
 
     return (
-        <div className="landlord-result">
+        <div 
+            onClick={() => handleShowReviews()}
+            className="landlord-result">
             <div className="landlord-name">
                 <strong>
                     {data.isOrganization ? (
