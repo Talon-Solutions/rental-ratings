@@ -1,12 +1,14 @@
 'use client'
 
+import { UserContext } from "@/context/user";
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 var bcrypt = require('bcryptjs');
 
 export default function Auth() {
     const [error, setError] = useState({ error: false, message: "" });
+    const { user, setUser } = useContext(UserContext);
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -50,7 +52,7 @@ export default function Auth() {
                     if (await res.text() === 'User already exists') {
                         setError({ error: true, message: "User already exists, try logging in instead" })
                     } else {
-                        // set global user state
+                        setUser(res.text())
                         router.back()
                     }
                 }
