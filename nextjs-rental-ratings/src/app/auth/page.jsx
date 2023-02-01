@@ -35,7 +35,20 @@ export default function Auth() {
                         })
                     })
 
-                    // compare plaintextpw and hashedpw from res
+                    const resStr = await res.text();
+
+                    if (resStr === "Cannot find user with this email") {
+                        setError({ error: true, message: "Could not find user with this email" })
+                    } else {
+                        const pwMatch = await bcrypt.compare(e.target.password.value, resStr)
+                        
+                        if (pwMatch) {
+                            setUser(e.target.email.value)
+                            router.back()
+                        } else {
+                            setError({ error: true, message: "Credentials incorrect" })
+                        }
+                    }
                 }
                 if (searchParams.get('type') === 'register') {
                     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/auth/register`, {
@@ -48,11 +61,13 @@ export default function Auth() {
                             password: hashedpw
                         })
                     })
+
+                    const resStr = await res.text();
                     
-                    if (await res.text() === 'User already exists') {
+                    if (resStr === 'User already exists') {
                         setError({ error: true, message: "User already exists, try logging in instead" })
                     } else {
-                        setUser(res.text())
+                        setUser(resStr)
                         router.back()
                     }
                 }

@@ -1,6 +1,8 @@
 'use client';
 import Searchbar from '@/components/search/Searchbar'
-import { useEffect, useState } from 'react';
+import { UserContext } from '@/context/user';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
 import './page.css'
 
 async function getSearchData(type, query) {
@@ -16,6 +18,9 @@ async function getSearchData(type, query) {
 export default function Home() {
   const [search, setSearch] = useState({ type: "landlord", query: "" });
   const [searchData, setSearchData] = useState([]);
+  const { user } = useContext(UserContext);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +68,12 @@ export default function Home() {
       </section>
       <section id='contribute'>
         <h2>Leave a Rating</h2>
-        <button id='register'><strong>Register</strong></button>
+        {user ? (
+          <button id='leave-review'><strong>Leave Review</strong></button>
+        ) : (
+          <button id='register' onClick={() => router.push('/auth?type=register')}><strong>Register</strong></button>
+        )}
+        
         <p>Users can leave anonymous reviews, edit their past reviews, and rate other users' reviews!</p>
       </section>
     </main>

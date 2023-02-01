@@ -10,14 +10,16 @@ class AuthService {
 
     async login(userInfo) {
         const user = new User()
-        const result = user.login(userInfo)
+        const result = await user.login(userInfo)
+        if (result === null) {
+            return this.returnSuccess(200, "Cannot find user with this email")
+        }
         return this.returnSuccess(200, result)
     }
 
     async register(userInfo) {
         const user = new User()
         const result = await user.register(userInfo)
-        console.log(result)
         if (result === null) {
             return this.returnSuccess(200, "User already exists")
         }
