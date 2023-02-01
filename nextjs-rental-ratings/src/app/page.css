@@ -48,9 +48,17 @@ main > h1 {
     text-align: center;
 }
 
-#contribute > #register {
+#contribute > #register, #leave-review {
+    background-color: var(--accent-orange);
+    border-radius: 0.3em;
+    color: white;
+    border: 2px solid var(--accent-orange-stroke);
     padding: 0.5em;
     font-size: 1em;
+}
+
+#register:hover, #leave-review:hover {
+    cursor: pointer;
 }
 
 #contribute > p {

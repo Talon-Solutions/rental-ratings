@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   experimental: {
     appDir: true,
   },
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.(js|jsx)$/
+    })
+    return config
+  },
 }
-
-module.exports = nextConfig
