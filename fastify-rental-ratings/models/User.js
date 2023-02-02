@@ -3,7 +3,6 @@ const db = require('../db/index')
 function User() {}
 
 User.prototype.login = async function(userInfo) {
-    console.log(userInfo)
     try {
         const { rows } = await db.query(
             `SELECT login_user($1)`,

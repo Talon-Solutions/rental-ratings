@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Search = require("../models/Search")
 const Reviews = require("../models/Reviews")
+const Review = require('../models/Review')
 
 class DataService {
   returnSuccess = (code, message) => {
@@ -50,6 +51,12 @@ class DataService {
   async getLandlordReviews(id) {
     const reviews = new Reviews({ id })
     const result = await reviews.getLandlordReviews()
+    return this.returnSuccess(200, result)
+  }
+
+  async leaveReview(reviewData) {
+    const review = new Review()
+    const result = await review.leaveReview(reviewData)
     return this.returnSuccess(200, result)
   }
 }
