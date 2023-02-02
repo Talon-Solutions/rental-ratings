@@ -60,4 +60,17 @@ module.exports = async function (fastify, opts) {
       .code(res.statusCode)
       .send(res.message)
   })
+  
+  fastify.post('/leaveReview', async function (request, reply) {
+    let res = {
+      statusCode: 400,
+      message: 'Error with query'
+    }
+
+    res = await dataService.leaveReview(request.body)
+
+    reply
+      .code(res.statusCode)
+      .send(res.message)
+  })
 }

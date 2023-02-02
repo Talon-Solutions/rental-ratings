@@ -1,0 +1,21 @@
+#review-form {
+    padding: 1em;
+}
+
+#review-form > section > div {
+    margin-top: 1em;
+}
+
+#review-form > section > div > input,textarea {
+    width: 80%;
+}
+
+#review-form > button {
+    background-color: var(--accent-orange);
+    border: 2px solid var(--accent-orange-stroke);
+    border-radius: 0.3em;
+    font-size: 1em;
+    color: white;
+    padding: 0.5em;
+    margin-top: 1em;
+}

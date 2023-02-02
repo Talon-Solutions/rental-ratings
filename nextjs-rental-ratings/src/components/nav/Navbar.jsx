@@ -22,7 +22,7 @@ export default function Navbar() {
         <nav>
             {user ? (
                 <div>
-                    <button>Leave Review</button>
+                    <button onClick={() => router.push('/review-form?id=-1')}>Leave Review</button>
                     <button onClick={() => handleLogout()}>Logout</button>
                 </div>
             ) : (

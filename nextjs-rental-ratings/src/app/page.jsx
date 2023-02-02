@@ -69,7 +69,7 @@ export default function Home() {
       <section id='contribute'>
         <h2>Leave a Rating</h2>
         {user ? (
-          <button id='leave-review'><strong>Leave Review</strong></button>
+          <button id='leave-review' onClick={() => router.push('/review-form?id=-1')}><strong>Leave Review</strong></button>
         ) : (
           <button id='register' onClick={() => router.push('/auth?type=register')}><strong>Register</strong></button>
         )}
