@@ -31,7 +31,9 @@ export default function ReviewForm() {
                     address: address.value.description,
                     propertyRating: e.target.property_rating.value,
                     propertyComments: e.target.property_comments.value,
+                    isOrganization: e.target.is_organization.value === "on" ? false : true,
                     landlordName: landlord,
+                    landlordCity: address.value.structured_formatting.secondary_text,
                     landlordRating: e.target.landlord_rating.value,
                     landlordComments: e.target.landlord_comments.value
                 })
@@ -86,6 +88,11 @@ export default function ReviewForm() {
                         
                         <section id="landlord-review">
                             <h2>Landlord Review</h2>
+                            <div id="landlord-organization">
+                                <label>Is the landlord an organization?</label>
+                                <input type="checkbox" name="is_organization" />
+                            </div>
+
                             <div id="landlord-name-container">
                                 <label>Landlord Name</label>
                                 <LandlordAutocomplete 

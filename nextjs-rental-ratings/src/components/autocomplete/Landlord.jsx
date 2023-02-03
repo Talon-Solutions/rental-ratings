@@ -24,11 +24,7 @@ export default function LandlordAutocomplete({ onInput }) {
                     let limitedSuggestions = [];
                     for (let i=0; i < 11; i++) {
                         if (data[i]) {
-                            if (data[i].isOrganization) {
-                                limitedSuggestions.push(data[i].organizationName)
-                            } else {
-                                limitedSuggestions.push(data[i].firstName + ' ' + data[i].lastName)
-                            }  
+                            limitedSuggestions.push(data[i].name)
                         }
                         
                     }
