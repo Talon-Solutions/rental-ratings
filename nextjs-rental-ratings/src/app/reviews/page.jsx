@@ -31,20 +31,49 @@ export default function Reviews() {
         fetchReviews()
     }, [])
 
+    const convertDate = (date) => {
+        const givenDate = new Date(date);
+        return givenDate.getFullYear() + '/' + givenDate.getMonth() + 1 + '/' + givenDate.getDate()
+    }
+
     return (
         <div>
-            <h1>{reviewData[0].firstName + ' ' + reviewData[0].lastName} Reviews</h1>
+            <h1>{searchParams.get('type') === 'landlord' ? (
+                reviewData[0]?.name
+            ) : searchParams.get('type') === 'property' ? (
+                reviewData[0]?.address
+            ) : (
+                "City"
+            )} Reviews</h1>
+
+            <label>Landlord:</label>
+            <p>{reviewData[0]?.landlordName}</p>
 
             <ul>
-                {reviewData[0].reviews.map(review => {
-                    return (
-                        <li>
-                            <div className='rating'>{review.landlordRating}/5</div>
-                            <div className='created'>{review.createdOn}</div>
-                            <div className="review">{review.landlordReview}</div>
-                        </li>
-                    )
-                })}
+                {Array.from(reviewData).map(rev => {
+                    if (searchParams.get('type') === 'landlord') {
+                        return (
+                            <li key={rev.id} className="landlord-review">
+                                <div className="rating">{rev.landlordRating}/5</div>
+                                <div className="created">{convertDate(rev.createdAt)}</div>
+                                <div className="review">{rev.landlordComments}</div>
+                            </li>
+                        ) 
+                    }
+                    if (searchParams.get('type') === 'property') {
+                        return (
+                            <li key={rev.id} className="property-review">
+                                <div className="rating">{rev.propertyRating}/5</div>
+                                <div className="created">{convertDate(rev.createdAt)}</div>
+                                <div className="review">{rev.propertyComments}</div>
+                                <div className="landlord-comments">
+                                    <label>Comments on landlord</label>
+                                    <textarea readOnly value={rev.landlordComments} />
+                                </div>
+                            </li>
+                        )
+                    }
+                })} 
             </ul>
             
         </div>
