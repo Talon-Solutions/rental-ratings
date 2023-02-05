@@ -59,6 +59,12 @@ class DataService {
     const result = await review.leaveReview(reviewData)
     return this.returnSuccess(200, result)
   }
+
+    async getReview(id) {
+        const review = new Review()
+        const result = await review.getReview(id)
+        return this.returnSuccess(200, result)
+    }
 }
 
 module.exports = DataService
