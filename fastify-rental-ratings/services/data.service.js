@@ -54,6 +54,12 @@ class DataService {
     return this.returnSuccess(200, result)
   }
 
+    async getPropertyReviews(id) {
+        const reviews = new Reviews({ id })
+        const result = await reviews.getPropertyReviews()
+        return this.returnSuccess(200, result)
+    }
+
   async leaveReview(reviewData) {
     const review = new Review()
     const result = await review.leaveReview(reviewData)

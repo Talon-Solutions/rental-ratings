@@ -17,6 +17,13 @@ export default function Searchbar({ type, showSuggestions, suggestions, onInput,
                 
             }
         }
+        if (type === "property") {
+            for (let i=0; i<11; i++) {
+                if (suggestions[i]) {
+                    limitedSuggestions.push({ id: suggestions[i].id, value: suggestions[i].address.toUpperCase() })
+                }
+            }
+        }
 
         setFilteredSuggestions(limitedSuggestions);
     }, [suggestions])
