@@ -14,4 +14,16 @@ Review.prototype.leaveReview = async function(reviewData) {
     }
 }
 
+Review.prototype.getReview = async function(id) {
+    try {
+        const { rows } = await db.query(
+            `SELECT get_review($1)`,
+            [id]
+        )
+        return rows[0].get_review
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports = Review

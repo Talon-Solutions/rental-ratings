@@ -3,7 +3,7 @@
 import LandlordAutocomplete from '@/components/autocomplete/Landlord';
 import { UserContext } from '@/context/user';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import './page.css';
 
@@ -12,12 +12,22 @@ export default function ReviewForm() {
     const [error, setError] = useState({ error: false, message: "" })
     const [address, setAddress] = useState(null)
     const [landlord, setLandlord] = useState(null)
+    const [review, setReview] = useState({})
     const searchParams = useSearchParams();
     const router = useRouter();
 
+    useEffect(() => {
+        const getReview = async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/data/getReview?reviewID=${searchParams.get('id')}`);
+            const resJson = await res.json();
+            setReview(JSON.parse(JSON.stringify(resJson)));
+        }
+
+        getReview()
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
 
         const sendReview = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/data/leaveReview`, {
@@ -31,7 +41,9 @@ export default function ReviewForm() {
                     address: address.value.description,
                     propertyRating: e.target.property_rating.value,
                     propertyComments: e.target.property_comments.value,
+                    isOrganization: e.target.is_organization.value === "on" ? false : true,
                     landlordName: landlord,
+                    landlordCity: address.value.structured_formatting.secondary_text,
                     landlordRating: e.target.landlord_rating.value,
                     landlordComments: e.target.landlord_comments.value
                 })
@@ -86,6 +98,11 @@ export default function ReviewForm() {
                         
                         <section id="landlord-review">
                             <h2>Landlord Review</h2>
+                            <div id="landlord-organization">
+                                <label>Is the landlord an organization?</label>
+                                <input type="checkbox" name="is_organization" />
+                            </div>
+
                             <div id="landlord-name-container">
                                 <label>Landlord Name</label>
                                 <LandlordAutocomplete 
@@ -113,7 +130,37 @@ export default function ReviewForm() {
                 </section>
             ) : (
                 <section>
-                    {/* Existing review view */}
+                    <h2>Property Review</h2>
+                    <div id="view-address">
+                        <label>Address</label>
+                        <input readOnly value={review?.propertyAddress} />
+                    </div>
+
+                    <div id="view-rating">
+                        <label>Rating</label>
+                        <input readOnly value={review?.propertyRating} />/5
+                    </div>
+
+                    <div id="view-property-comments">
+                        <label>Comments</label>
+                        <textarea readOnly value={review?.propertyComments} />
+                    </div>
+
+                    <h2>Landlord Review</h2>
+                    <div id="view-name">
+                        <label>Name</label>
+                        <input readOnly value={review?.landlordName} />
+                    </div>
+
+                    <div id="view-landord-rating">
+                        <label>Rating</label>
+                        <input readOnly value={review?.landlordRating} />/5
+                    </div>
+
+                    <div id="view-landlord-comments">
+                        <label>Comments</label>
+                        <textarea readOnly value={review?.landlordComments} />
+                    </div>
                 </section>
             )}
             

@@ -73,4 +73,17 @@ module.exports = async function (fastify, opts) {
       .code(res.statusCode)
       .send(res.message)
   })
+
+    fastify.get('/getReview', async function (request, reply) {
+        let res = {
+            statusCode: 400,
+            message: 'Error with query'
+        }
+
+        res = await dataService.getReview(request.query.reviewID)
+
+        reply
+            .code(res.statusCode)
+            .send(res.message)
+    })
 }

@@ -12,11 +12,7 @@ export default function Searchbar({ type, showSuggestions, suggestions, onInput,
         if (type === "landlord") {
             for (let i=0; i < 11; i++) {
                 if (suggestions[i]) {
-                    if (suggestions[i].isOrganization) {
-                        limitedSuggestions.push({ id: suggestions[i].id, value: suggestions[i].organizationName.toUpperCase() })
-                    } else {
-                        limitedSuggestions.push({ id: suggestions[i].id, value: suggestions[i].firstName.toUpperCase() + ' ' + suggestions[i].lastName.toUpperCase() })
-                    }
+                    limitedSuggestions.push({ id: suggestions[i].id, value: suggestions[i].name.toUpperCase() })
                 }
                 
             }

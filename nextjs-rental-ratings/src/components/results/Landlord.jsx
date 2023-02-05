@@ -13,11 +13,7 @@ export default function LandlordResult({ data }) {
             className="landlord-result">
             <div className="landlord-name">
                 <strong>
-                    {data.isOrganization ? (
-                        data.organizationName
-                    ) : (
-                        data.firstName.toUpperCase() + ' ' + data.lastName.toUpperCase()
-                    )}
+                    {data.name}
                 </strong>
                 
             </div>
