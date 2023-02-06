@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const Search = require("../models/Search")
 const Reviews = require("../models/Reviews")
 const Review = require('../models/Review')
+const UserReviews = require('../models/UserReviews')
 
 class DataService {
   returnSuccess = (code, message) => {
@@ -69,6 +70,18 @@ class DataService {
     async getReview(id) {
         const review = new Review()
         const result = await review.getReview(id)
+        return this.returnSuccess(200, result)
+    }
+
+    async userReviews(user) {
+        const reviews = new UserReviews()
+        const result = await reviews.userReviews(user)
+        return this.returnSuccess(200, result)
+    }
+
+    async deleteReview(id) {
+        const review = new Review()
+        const result = await review.deleteReview(id)
         return this.returnSuccess(200, result)
     }
 }
