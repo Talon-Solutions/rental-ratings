@@ -20,10 +20,15 @@ export default function ReviewForm() {
         const getReview = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/data/getReview?reviewID=${searchParams.get('id')}`);
             const resJson = await res.json();
-            setReview(JSON.parse(JSON.stringify(resJson)));
-        }
 
-        getReview()
+            setReview(resJson);
+            setAddress(resJson.placesInfo);
+            setLandlord(resJson.landlordName);
+        }
+        
+        if (searchParams.get('id') !== '-1') {
+            getReview()
+        }
     }, [])
 
     const handleSubmit = (e) => {
@@ -36,6 +41,7 @@ export default function ReviewForm() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    id: searchParams.get('id'),
                     user: user,
                     placesInfo: address,
                     address: address.value.description,
@@ -55,7 +61,7 @@ export default function ReviewForm() {
                 setError({ error: true, message: resStr })
             } else {
                 setError({ error: false, message: "" })
-                router.push(`/review-form?id=${resStr}&user=${user}`)
+                router.push(`/userReviews?user=${user}`)
             }
         }
 
@@ -81,18 +87,18 @@ export default function ReviewForm() {
                                     apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY}
                                     minLengthAutoComplete={5}
                                     debounce={1500}
-                                    selectProps={{address, onChange: setAddress}}
+                                    selectProps={{defaultInputValue: review?.address, value: address, onChange: setAddress}}
                                 />
                             </div>
 
                             <div id="property-rating-container">
                                 <label htmlFor="property_rating">Rating out of 5</label>
-                                <input name="property_rating" required="required" type="number" max={5} min={1} />/5 
+                                <input name="property_rating" required="required" type="number" max={5} min={1} defaultValue={review?.propertyRating}/>/5 
                             </div>
                             
                             <div id="property-comments-container">
                                 <label htmlFor="property_comments">Comments</label>
-                                <textarea name="property_comments" />
+                                <textarea name="property_comments" defaultValue={review?.propertyComments} />
                             </div>
                         </section>
                         
@@ -100,28 +106,30 @@ export default function ReviewForm() {
                             <h2>Landlord Review</h2>
                             <div id="landlord-organization">
                                 <label>Is the landlord an organization?</label>
-                                <input type="checkbox" name="is_organization" />
+                                <input type="checkbox" name="is_organization" defaultValue={review?.isOrganization}/>
                             </div>
 
                             <div id="landlord-name-container">
                                 <label>Landlord Name</label>
                                 <LandlordAutocomplete 
                                     onInput={(e) => setLandlord(e)}
+                                    value={landlord}
                                 />
                             </div>
                             
                             <div id="landlord-rating-container">
                                 <label htmlFor="landlord_rating">Rating out of 5</label>
-                                <input name="landlord_rating" required="required" type="number" max={5} min={1} />/5
+                                <input name="landlord_rating" required="required" type="number" max={5} min={1} defaultValue={review?.landlordRating}/>/5
                             </div>
 
                             <div id="landlord-comments-container">
                                 <label htmlFor="landlord_comments">Comments</label>
-                                <textarea name="landlord_comments" /> 
+                                <textarea name="landlord_comments" defaultValue={review?.landlordComments}/> 
                             </div>
                         </section>
                         
                         <button type="submit"><strong>Submit Review</strong></button>
+                        <button type="cancel" onClick={(e) => {e.preventDefault; router.replace(`/userReviews?user=${user}`)}}><strong>Cancel</strong></button>
                     </form>
                 </section>
             ) : searchParams.get('user') !== user && searchParams.get('id') !== "-1" ? (

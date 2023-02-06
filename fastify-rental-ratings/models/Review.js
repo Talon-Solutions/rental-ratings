@@ -26,4 +26,16 @@ Review.prototype.getReview = async function(id) {
     }
 }
 
+Review.prototype.deleteReview = async function(id) {
+    try {
+        const { rows } = await db.query(
+            'select delete_review($1)',
+            [id]
+        )
+        return rows[0].delete_review
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports = Review

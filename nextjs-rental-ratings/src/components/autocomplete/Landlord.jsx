@@ -10,7 +10,7 @@ async function getSearchData(type, query) {
     return res.json();
 }
 
-export default function LandlordAutocomplete({ onInput }) {
+export default function LandlordAutocomplete({ onInput, value }) {
     const [suggestions, setSuggestions] = useState([])
     const [showSuggestions, setShowSuggestions] = useState(true)
     const [search, setSearch] = useState(null)
@@ -19,7 +19,7 @@ export default function LandlordAutocomplete({ onInput }) {
     useEffect(() => {
         const fetchData = async () => {
             if (search && showSuggestions) {
-                const data = await getSearchData('landlord', search);
+                const data = await getSearchData('landlord', value);
                 if (data) {
                     let limitedSuggestions = [];
                     for (let i=0; i < 11; i++) {
@@ -47,7 +47,8 @@ export default function LandlordAutocomplete({ onInput }) {
                 type="search"
                 id="landlord-search"
                 placeholder="Landlord Name..."
-                value={search}
+                defaultValue={value}
+                value={value}
                 onChange={(e) => {
                     onInput(e.target.value.toUpperCase())
                     setSearch(e.target.value.toUpperCase())
@@ -64,7 +65,7 @@ export default function LandlordAutocomplete({ onInput }) {
                 <ul id="suggestions">
                     {suggestions?.map(sug => {
                         return (
-                            <li onClick={() => {
+                            <li key={sug} onClick={() => {
                                 onInput(sug.toUpperCase())
                                 setSearch(sug.toUpperCase())
                                 setShowSuggestions(false)

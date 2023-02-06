@@ -86,4 +86,30 @@ module.exports = async function (fastify, opts) {
             .code(res.statusCode)
             .send(res.message)
     })
+
+    fastify.get('/userReviews', async function (request, reply) {
+        let res = {
+            statusCode: 400,
+            message: 'Error with query'
+        }
+
+        res = await dataService.userReviews(request.query.user)
+
+        reply
+            .code(res.statusCode)
+            .send(res.message)
+    })
+
+    fastify.get('/deleteReview', async function (request, reply) {
+        let res = {
+            statusCode: 400,
+            message: 'Error with query'
+        }
+
+        res = await dataService.deleteReview(request.query.id)
+
+        reply
+            .code(res.statusCode)
+            .send(res.message)
+    })
 }
