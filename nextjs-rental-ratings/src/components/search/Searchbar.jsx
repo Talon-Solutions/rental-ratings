@@ -57,7 +57,7 @@ export default function Searchbar({ type, showSuggestions, suggestions, onInput,
                 <ul id="search-dropdown">
                     {filteredSuggestions?.map(sug => {
                         return (
-                            <li key={sug.id}>{sug.value}</li>
+                            <li onClick={() => router.push(`/reviews?type=${type}&id=${sug.id}`)} key={sug.id}>{sug.value}</li>
                         )
                     })}
                 </ul>

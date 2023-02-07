@@ -1,0 +1,7 @@
+.reviews {
+    padding: 1em;
+}
+
+.reviews > h1 {
+    text-align: center;
+}

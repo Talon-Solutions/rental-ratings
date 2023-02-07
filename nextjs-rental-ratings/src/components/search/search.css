@@ -5,6 +5,9 @@
         "header"
         "main"
         "footer";
+    max-width: 500px;
+    width: 100%;
+    position: relative;
 }
 
 #bar {
@@ -35,6 +38,7 @@
     width: 100%;
     padding: 0;
     margin: 0;
+    position: absolute;
 }
 
 #search-dropdown > li {

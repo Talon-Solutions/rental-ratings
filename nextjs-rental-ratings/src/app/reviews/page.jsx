@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react";
+import './page.css'
 
 async function fetchData(type, id) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/data/getReviews?searchType=${type}&id=${id}`);
@@ -37,7 +38,7 @@ export default function Reviews() {
     }
 
     return (
-        <div>
+        <main className="reviews">
             <h1>{searchParams.get('type') === 'landlord' ? (
                 reviewData[0]?.name
             ) : searchParams.get('type') === 'property' ? (
@@ -46,8 +47,12 @@ export default function Reviews() {
                 "City"
             )} Reviews</h1>
 
-            <label>Landlord:</label>
-            <p>{reviewData[0]?.landlordName}</p>
+            {searchParams.get('type') === 'property' && (
+                <>
+                    <label>Landlord:</label>
+                    <p>{reviewData[0]?.name}</p>
+                </>
+            )}
 
             <ul>
                 {Array.from(reviewData).map(rev => {
@@ -75,7 +80,6 @@ export default function Reviews() {
                     }
                 })} 
             </ul>
-            
-        </div>
+        </main>
     )
 }
