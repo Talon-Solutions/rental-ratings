@@ -1,16 +1,19 @@
 :root {
-  --bg-light: #eeede6;
-  --accent-orange: #db6d39;
-  --accent-orange-stroke: #bc5e31;
-  --accent-brown: #b98967;
-  --accent-brown-stroke: #a2785a;
-  --hover-select: #d4d4cf;
-  --text-secondary: rgb(37, 37, 37);
+  --bg-light: #f5f1f1;
+  --bg-dark: #2b292f;
+  --main-brand: #db6d39;
+  --main-brand-border: #bb6237;
+  --accent-dark: #a97762;
+  --accent-dark-border: #886252;
+  --accent-light: #98aea9;
+  --accent-light-border: #98aea9;
+  --hover-select: #d7d6d6;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-html, body {
+html,
+body {
   background-color: var(--bg-light);
   padding: 0;
   margin: 0;

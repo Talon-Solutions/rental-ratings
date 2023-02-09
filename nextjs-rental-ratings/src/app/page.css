@@ -13,7 +13,7 @@ main > h1 {
   align-items: center;
   justify-content: center;
   min-height: 35vh;
-  width: calc(100% - 32px);
+  width: calc(100% - 2em);
 }
 
 #search > h2 {
@@ -32,8 +32,8 @@ main > h1 {
 
 .button-search {
   padding: 0.5em;
-  background-color: var(--accent-brown);
-  border: 2px solid var(--accent-brown-stroke);
+  background-color: var(--accent-dark);
+  border: 2px solid var(--accent-dark-border);
   border-radius: 0.3em;
   width: 5em;
   color: white;
@@ -59,12 +59,13 @@ main > h1 {
 
 #contribute > #register,
 #leave-review {
-  background-color: var(--accent-orange);
+  background-color: var(--main-brand);
   border-radius: 0.3em;
   color: white;
-  border: 2px solid var(--accent-orange-stroke);
+  border: 2px solid var(--main-brand-border);
   padding: 0.5em;
   font-size: 1em;
+  text-shadow: 1px 1px black, 0 1px black;
 }
 
 #register:hover,

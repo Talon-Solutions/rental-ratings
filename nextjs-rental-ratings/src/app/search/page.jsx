@@ -42,7 +42,7 @@ export default function Search() {
     }, [search])
 
     return (
-        <main>
+        <main id='search-results'>
             <Searchbar
                 type={searchParams.get('type')}
                 showSuggestions={false}
